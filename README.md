@@ -90,8 +90,7 @@ When Pace Planner is first opened in a browser, it initializes a set of realisti
 ```
 Pace_Planner/
 ├── index.html              # Main single-page application shell
-├── README.md               # Complete documentation
-├── PRD.md                  # Product Requirements Document
+├── README.md               # Project Documentation
 ├── .gitignore              # Git ignore rules
 │
 ├── css/
