@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pace Planner — Modern Personal Productivity & Planning Dashboard</title>
+  <meta name="description" content="Pace Planner is an intelligent personal productivity and planning dashboard. Organize tasks with full CRUD, focus with Pomodoro timers, track calendar schedules, and view public holidays.">
+  <meta name="keywords" content="productivity, pace planner, task manager, pomodoro timer, calendar planner, holiday tracker, personal dashboard">
+  <meta name="author" content="Pace Planner Team">
+  <meta name="theme-color" content="#090d16">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Pace Planner — Modern Productivity & Planning">
+  <meta property="og:description" content="Organize tasks, boost focus with Pomodoro, track calendar schedules, and view holidays from one unified dashboard.">
+  <meta property="og:image" content="assets/favicon.svg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Pace Planner — Modern Productivity & Planning">
+  <meta name="twitter:description" content="Organize tasks, boost focus with Pomodoro, track calendar schedules, and view holidays from one unified dashboard.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Accessible Skip to Content Link -->
+  <a href="#app-viewport" class="skip-to-content">Skip to main content</a>
+
+  <!-- Backdrop overlay for mobile drawer -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
+
+  <div class="app-container">
+    
+    <!-- ==========================================================================
+         Sidebar Navigation
+         ========================================================================== -->
+    <aside class="app-sidebar" id="app-sidebar" aria-label="Main Navigation">
+      <div class="sidebar-header">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="12 6 8 13 12 13 11 18 16 11 12 11 12 6"></polygon>
+          </svg>
+        </div>
+        <span class="brand-name">Pace Planner</span>
+        <span class="brand-badge">MVP</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-heading">Main</span>
+        <a href="#dashboard" class="nav-link active" data-nav-target="dashboard" id="nav-dashboard">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Dashboard
+        </a>
+        <a href="#tasks" class="nav-link" data-nav-target="tasks" id="nav-tasks">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          Tasks
+        </a>
+        <a href="#calendar" class="nav-link" data-nav-target="calendar" id="nav-calendar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Calendar
+        </a>
+        <a href="#pomodoro" class="nav-link" data-nav-target="pomodoro" id="nav-pomodoro">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Pomodoro Focus
+        </a>
+
+        <span class="nav-heading" style="margin-top: 0.5rem;">Insights & Planning</span>
+        <a href="#holidays" class="nav-link" data-nav-target="holidays" id="nav-holidays">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          Public Holidays
+        </a>
+        <a href="#statistics" class="nav-link" data-nav-target="statistics" id="nav-statistics">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          Productivity Stats
+        </a>
+        <a href="#settings" class="nav-link" data-nav-target="settings" id="nav-settings">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-quick-card">
+          <p>Quick Add Hotkey: press <kbd style="background:var(--bg-surface-elevated); padding:2px 5px; border-radius:4px; border:1px solid var(--border-color);">N</kbd></p>
+          <button class="btn btn-primary btn-sm" data-action="quick-add-task" style="width: 100%;">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            New Task
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==========================================================================
+         Main App Body
+         ========================================================================== -->
+    <div class="app-main">
+      
+      <!-- Top Application Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <button class="btn-icon mobile-drawer-toggle" id="mobile-drawer-toggle" aria-label="Open Navigation Menu">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          
+          <div class="header-time-pill" title="Current Local Time">
+            <span class="header-live-pulse" aria-hidden="true"></span>
+            <span id="header-live-time">12:00 PM</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Quick Add Button -->
+          <button class="btn btn-primary btn-sm" data-action="quick-add-task" id="header-quick-add-btn">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Add Task</span>
+          </button>
+
+          <!-- Quick Theme Toggle -->
+          <button class="btn-icon btn-ghost" id="quick-theme-toggle" aria-label="Toggle Dark/Light Theme" title="Toggle Theme">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Viewport / Dynamic Sections Area -->
+      <main class="view-viewport" id="app-viewport">
+        
+        <!-- ======================================================================
+             SECTION 1: DASHBOARD
+             ====================================================================== -->
+        <section class="app-section is-active" id="section-dashboard" aria-labelledby="dash-title">
+          <div class="dash-hero-banner">
+            <div class="dash-greeting">
+              <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.35rem; flex-wrap: wrap;">
+                <h2 id="dash-greeting-text">🌅 Good morning, <span class="highlight-name">Achiever</span></h2>
+                <span class="badge badge-neutral" style="font-size: 0.72rem; padding: 0.15rem 0.5rem; opacity: 0.85;" title="Sample tasks loaded for demonstration. You can customize, add, or clear them anytime in Settings.">Local Demo Workspace</span>
+              </div>
+              <p id="dash-greeting-sub">Your personal productivity dashboard for daily tasks, Pomodoro focus, and planning.</p>
+            </div>
+            <div class="dash-hero-right" style="text-align: right;">
+              <div id="dash-live-time" style="font-size: 1.85rem; font-weight: 800; font-family: var(--font-heading); color: var(--primary); line-height: 1.1;">--:--:--</div>
+              <div id="dash-live-date" style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.25rem;">Saturday, September 5, 2026</div>
+            </div>
+          </div>
+
+          <!-- 4 Stats Cards Grid -->
+          <div class="dash-stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-today">📅</div>
+              <div class="stat-content">
+                <span class="stat-label">Tasks Due Today</span>
+                <span class="stat-value" id="dash-stat-today-count">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-pending">⏳</div>
+              <div class="stat-content">
+                <span class="stat-label">Total Pending</span>
+                <span class="stat-value" id="dash-stat-pending-count">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-completed">✓</div>
+              <div class="stat-content">
+                <span class="stat-label">Total Completed</span>
+                <span class="stat-value" id="dash-stat-completed-count">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-rate">
+                <!-- Mini Progress Ring -->
+                <svg width="40" height="40" viewBox="0 0 90 90" style="transform: rotate(-90deg);">
+                  <circle cx="45" cy="45" r="40" fill="none" stroke="var(--border-color)" stroke-width="8"></circle>
+                  <circle id="dash-completion-ring" cx="45" cy="45" r="40" fill="none" stroke="var(--secondary)" stroke-width="8" stroke-dasharray="251.3" stroke-dashoffset="100" stroke-linecap="round"></circle>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <span class="stat-label">Completion Rate</span>
+                <span class="stat-value" id="dash-stat-completion-rate">0%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two Column Grid for Schedule & Widgets -->
+          <div class="dash-columns-grid">
+            <!-- Left Column: Today's Schedule -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Today's Schedule</h3>
+                <span class="badge badge-success" id="dash-streak-badge">0 Day Streak 🔥</span>
+              </div>
+              <div class="dash-schedule-list" id="dash-today-schedule">
+                <!-- Dynamic Schedule items inserted via app.js -->
+              </div>
+
+              <!-- Upcoming tasks underneath -->
+              <div class="card-header" style="margin-top: 2rem; margin-bottom: 0.75rem;">
+                <h3 class="card-title" style="font-size: 1rem;">Upcoming Tasks</h3>
+                <a href="#tasks" data-nav-target="tasks" class="btn-ghost btn-sm">View All &rarr;</a>
+              </div>
+              <div class="dash-upcoming-list" id="dash-upcoming-tasks">
+                <!-- Dynamic Upcoming items inserted via app.js -->
+              </div>
+            </div>
+
+            <!-- Right Column: Pomodoro & Holidays -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+              <!-- Quick Pomodoro -->
+              <div class="dash-pomo-quick">
+                <span class="badge badge-priority-urgent">Focus Block</span>
+                <div class="dash-pomo-time" id="dash-pomo-time">25:00</div>
+                <button class="btn btn-primary" id="dash-start-pomo-btn" style="width: 100%;">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                  Quick Start Pomodoro
+                </button>
+              </div>
+
+              <!-- Upcoming Holidays Widget -->
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Upcoming Holidays</h3>
+                  <a href="#holidays" data-nav-target="holidays" class="btn-ghost btn-sm">Calendar &rarr;</a>
+                </div>
+                <div id="dash-upcoming-holidays">
+                  <!-- Dynamic holidays list -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================================================================
+             SECTION 2: TASKS MANAGEMENT
+             ====================================================================== -->
+        <section class="app-section" id="section-tasks" aria-labelledby="tasks-title">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h1 id="tasks-title">Tasks Management</h1>
+              <p>Create, organize, prioritize, and track all your personal & work goals.</p>
+            </div>
+            <button class="btn btn-primary" data-action="quick-add-task">
+              <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Create Task
+            </button>
+          </div>
+
+          <!-- Tasks Toolbar & Navigation Tabs -->
+          <div class="tasks-toolbar">
+            <!-- View Tabs -->
+            <div class="tabs-nav" role="tablist">
+              <button class="tab-btn active" data-tab-target="view-all" role="tab">All Tasks <span class="tab-count">0</span></button>
+              <button class="tab-btn" data-tab-target="view-today" role="tab">Today <span class="tab-count">0</span></button>
+              <button class="tab-btn" data-tab-target="view-upcoming" role="tab">Upcoming <span class="tab-count">0</span></button>
+              <button class="tab-btn" data-tab-target="view-overdue" role="tab">Overdue <span class="tab-count">0</span></button>
+              <button class="tab-btn" data-tab-target="view-completed" role="tab">Completed <span class="tab-count">0</span></button>
+              <button class="tab-btn" data-tab-target="view-pending" role="tab">Pending <span class="tab-count">0</span></button>
+            </div>
+
+            <!-- Search, Filters, and Sorting Controls -->
+            <div class="tasks-controls-row">
+              <div class="search-box-wrap">
+                <svg class="icon icon-sm search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="search" class="form-input" id="tasks-search-input" placeholder="Search title, description, category, #tags (Press '/')" autocomplete="off">
+                <button class="search-clear-btn" id="tasks-clear-search" aria-label="Clear search">&times;</button>
+              </div>
+
+              <div class="filter-group">
+                <!-- Priority Filter -->
+                <select class="form-select" id="filter-priority" aria-label="Filter by priority">
+                  <option value="all">All Priorities</option>
+                  <option value="Urgent">Urgent</option>
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+
+                <!-- Category Filter -->
+                <select class="form-select" id="filter-category" aria-label="Filter by category">
+                  <option value="all">All Categories</option>
+                </select>
+
+                <!-- Status Filter -->
+                <select class="form-select" id="filter-status" aria-label="Filter by status">
+                  <option value="all">All Statuses</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Completed">Completed</option>
+                </select>
+
+                <!-- Sort By -->
+                <select class="form-select" id="sort-by-select" aria-label="Sort tasks">
+                  <option value="dueDate">Due Date</option>
+                  <option value="priority">Priority</option>
+                  <option value="createdAt">Created Date</option>
+                  <option value="title">Alphabetical</option>
+                </select>
+
+                <!-- Sort Order Toggle -->
+                <button class="btn btn-secondary btn-icon" id="sort-order-btn" title="Sort Order: ASC">↑</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Task Cards List Container -->
+          <div class="tasks-list-container" id="tasks-list-container">
+            <!-- Dynamic task items injected via tasks.js -->
+          </div>
+        </section>
+
+        <!-- ======================================================================
+             SECTION 3: CALENDAR / PLANNER
+             ====================================================================== -->
+        <section class="app-section" id="section-calendar" aria-labelledby="cal-title">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h1 id="cal-title">Calendar & Planner</h1>
+              <p>Visual date-based scheduling, workload density, and day agendas.</p>
+            </div>
+            <button class="btn btn-primary" id="cal-add-task-btn">
+              <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Schedule on Date
+            </button>
+          </div>
+
+          <div class="calendar-layout">
+            <!-- Month Grid Card -->
+            <div class="cal-card">
+              <div class="cal-header-bar">
+                <h2 id="cal-month-year" style="font-size: 1.5rem;">Month Year</h2>
+                <div class="cal-nav-group">
+                  <button class="btn btn-secondary btn-icon" id="cal-prev-btn" aria-label="Previous Month">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                  </button>
+                  <button class="btn btn-secondary btn-sm" id="cal-today-btn">Today</button>
+                  <button class="btn btn-secondary btn-icon" id="cal-next-btn" aria-label="Next Month">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Day of week header -->
+              <div class="cal-grid-header">
+                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+              </div>
+
+              <!-- Days Grid -->
+              <div class="cal-days-grid" id="cal-days-grid">
+                <!-- Dynamically populated 35-42 cells -->
+              </div>
+            </div>
+
+            <!-- Day Agenda Sidebar -->
+            <div class="cal-agenda-card">
+              <div class="card-header" style="margin-bottom: 0.5rem;">
+                <h3 class="card-title">Day Agenda</h3>
+                <span class="badge badge-neutral" id="cal-agenda-count">0 tasks</span>
+              </div>
+              <h4 id="cal-agenda-date" style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.75rem;">Today</h4>
+              
+              <div class="cal-agenda-list" id="cal-agenda-list">
+                <!-- Agenda items -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================================================================
+             SECTION 4: POMODORO FOCUS TIMER
+             ====================================================================== -->
+        <section class="app-section" id="section-pomodoro" aria-labelledby="pomo-title">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h1 id="pomo-title">Pomodoro Focus Timer</h1>
+              <p>Maintain peak cognitive flow using structured 25-minute intervals and restorative breaks.</p>
+            </div>
+          </div>
+
+          <div class="pomo-wrapper">
+            <!-- Timer Display Card -->
+            <div class="pomo-main-card">
+              <!-- Mode Selection Tabs -->
+              <div class="pomo-mode-tabs" role="tablist">
+                <button class="pomo-mode-btn active" id="pomo-mode-focus">Focus (25m)</button>
+                <button class="pomo-mode-btn" id="pomo-mode-short">Short Break (5m)</button>
+                <button class="pomo-mode-btn" id="pomo-mode-long">Long Break (15m)</button>
+              </div>
+
+              <span class="badge badge-priority-urgent" id="pomo-mode-badge" style="font-size: 0.85rem; padding: 0.35rem 0.85rem;">Focus Session</span>
+
+              <!-- SVG Circular Progress Ring -->
+              <div class="pomo-timer-display">
+                <svg class="pomo-svg-ring" viewBox="0 0 200 200">
+                  <defs>
+                    <linearGradient id="pomo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="var(--primary)" />
+                      <stop offset="100%" stop-color="var(--secondary)" />
+                    </linearGradient>
+                  </defs>
+                  <circle class="pomo-bg-circle" cx="100" cy="100" r="90"></circle>
+                  <circle class="pomo-progress-circle" id="pomo-progress-circle" cx="100" cy="100" r="90"></circle>
+                </svg>
+                <div class="pomo-timer-center">
+                  <div class="pomo-timer-text" id="pomo-timer-text">25:00</div>
+                  <div class="pomo-cycle-indicator" id="pomo-cycle-indicator">Session 1 of 4</div>
+                </div>
+              </div>
+
+              <!-- Timer Controls -->
+              <div class="pomo-controls-row">
+                <button class="btn btn-primary btn-lg" id="pomo-start-btn">Start Focus</button>
+                <button class="btn btn-secondary btn-lg" id="pomo-pause-btn" style="display: none;">Pause</button>
+                <button class="btn btn-secondary btn-icon btn-lg" id="pomo-reset-btn" title="Reset Timer">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                </button>
+                <button class="btn btn-ghost btn-icon btn-lg" id="pomo-skip-btn" title="Skip Session">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Session History & Quick Stats -->
+            <div class="pomo-side-card">
+              <div class="card-header">
+                <h3 class="card-title">Focus Log</h3>
+                <button class="btn-ghost btn-sm" id="pomo-clear-history-btn">Clear Log</button>
+              </div>
+
+              <div class="pomo-stats-summary">
+                <div class="pomo-stat-box">
+                  <div class="val" id="pomo-total-sessions">0</div>
+                  <div class="lbl">Completed Today</div>
+                </div>
+                <div class="pomo-stat-box">
+                  <div class="val" id="pomo-total-minutes">0m</div>
+                  <div class="lbl">Total Focus Time</div>
+                </div>
+              </div>
+
+              <h4 style="font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--text-dim);">Recent Sessions</h4>
+              <div class="pomo-history-list" id="pomo-history-list">
+                <!-- Session items -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================================================================
+             SECTION 5: PUBLIC HOLIDAYS
+             ====================================================================== -->
+        <section class="app-section" id="section-holidays" aria-labelledby="holidays-title">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h1 id="holidays-title">Public Holidays</h1>
+              <p>Explore upcoming national and regional holidays to plan ahead seamlessly.</p>
+            </div>
+          </div>
+
+          <!-- Holidays Toolbar -->
+          <div class="holidays-toolbar">
+            <div class="holidays-selectors">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" for="holiday-country-select">Country</label>
+                <select class="form-select" id="holiday-country-select">
+                  <!-- Populated dynamically via holidays.js -->
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" for="holiday-year-select">Year</label>
+                <select class="form-select" id="holiday-year-select">
+                  <!-- Populated dynamically via holidays.js -->
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn-secondary btn-sm" id="holiday-retry-btn">
+              <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              Refresh
+            </button>
+          </div>
+
+          <!-- Status / Curated Fallback Notification -->
+          <div id="holidays-status-note"></div>
+
+          <!-- Loading State -->
+          <div id="holidays-loading-state" class="empty-state" style="display: none;">
+            <div class="empty-state-icon">⏳</div>
+            <h3 class="empty-state-title">Fetching Public Holidays...</h3>
+            <p class="empty-state-subtitle">Connecting to Nager.Date REST API</p>
+          </div>
+
+          <!-- Error State -->
+          <div id="holidays-error-state" class="empty-state" style="display: none;">
+            <div class="empty-state-icon">⚠️</div>
+            <h3 class="empty-state-title">Unable to Load Holidays</h3>
+            <p class="empty-state-subtitle">Network issue or API rate limit. Click refresh to retry.</p>
+            <button class="btn btn-primary btn-sm" onclick="HolidaysService.fetchHolidays(true)">Retry Now</button>
+          </div>
+
+          <!-- Empty State -->
+          <div id="holidays-empty-state" class="empty-state" style="display: none;">
+            <div class="empty-state-icon">🏖️</div>
+            <h3 class="empty-state-title">No Holidays Found</h3>
+            <p class="empty-state-subtitle">No holiday entries recorded for this selection.</p>
+          </div>
+
+          <!-- Holidays Cards Grid -->
+          <div class="holidays-list-container" id="holidays-list-container">
+            <!-- Populated dynamically via holidays.js -->
+          </div>
+        </section>
+
+        <!-- ======================================================================
+             SECTION 6: PRODUCTIVITY STATISTICS
+             ====================================================================== -->
+        <section class="app-section" id="section-statistics" aria-labelledby="stats-title">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h1 id="stats-title">Productivity Statistics</h1>
+              <p>Actionable analytics, streaks, focus hours, and weekly performance trends.</p>
+            </div>
+          </div>
+
+          <!-- Metric Cards -->
+          <div class="stats-grid-cards">
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-completed">🎯</div>
+              <div class="stat-content">
+                <span class="stat-label">Completed Today</span>
+                <span class="stat-value" id="stat-completed-today">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-today">📊</div>
+              <div class="stat-content">
+                <span class="stat-label">Completed This Week</span>
+                <span class="stat-value" id="stat-completed-week">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-rate">📈</div>
+              <div class="stat-content">
+                <span class="stat-label">Completed This Month</span>
+                <span class="stat-value" id="stat-completed-month">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-completed">✨</div>
+              <div class="stat-content">
+                <span class="stat-label">Completion Rate</span>
+                <span class="stat-value" id="stat-completion-rate">0%</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-rate">⏱️</div>
+              <div class="stat-content">
+                <span class="stat-label">Total Focus Time</span>
+                <span class="stat-value" id="stat-focus-time">0m</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-today">🍅</div>
+              <div class="stat-content">
+                <span class="stat-label">Pomodoro Sessions</span>
+                <span class="stat-value" id="stat-pomodoro-count">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap stat-icon-pending">⏳</div>
+              <div class="stat-content">
+                <span class="stat-label">Pending Tasks</span>
+                <span class="stat-value" id="stat-pending-tasks">0</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap" style="background: var(--danger-subtle); color: var(--danger);">⚠️</div>
+              <div class="stat-content">
+                <span class="stat-label">Overdue Tasks</span>
+                <span class="stat-value" id="stat-overdue-tasks">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="stats-charts-row">
+            <!-- 7-Day Trend Chart -->
+            <div class="chart-card">
+              <div class="card-header">
+                <h3 class="card-title">7-Day Completion Trend</h3>
+                <span class="badge badge-success" id="stat-streak-days">0 days streak</span>
+              </div>
+              <p style="font-size: 0.85rem; margin-bottom: 1rem;">Daily tasks marked completed over the past week.</p>
+              <div id="stats-trend-chart">
+                <!-- Injected via statistics.js -->
+              </div>
+            </div>
+
+            <!-- Priority & Category Distribution -->
+            <div class="chart-card">
+              <div class="card-header">
+                <h3 class="card-title">Category Breakdown</h3>
+              </div>
+              <div id="stats-category-breakdown" style="margin-bottom: 1.5rem;">
+                <!-- Category progress bars -->
+              </div>
+
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Priority Distribution</h4>
+              <div id="stats-priority-breakdown">
+                <!-- Stacked bar & legend -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================================================================
+             SECTION 7: SETTINGS & DATA MANAGEMENT
+             ====================================================================== -->
+        <section class="app-section" id="section-settings" aria-labelledby="settings-title">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h1 id="settings-title">Settings & Preferences</h1>
+              <p>Customize themes, default behavior, timer intervals, and manage backups.</p>
+            </div>
+          </div>
+
+          <form id="settings-form">
+            <!-- Appearance & Profile -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-header">
+                <h3 class="card-title">General & Appearance</h3>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="setting-theme">Color Theme</label>
+                  <select class="form-select" id="setting-theme">
+                    <option value="system">System Preference (Auto)</option>
+                    <option value="dark">Deep Slate Dark Mode</option>
+                    <option value="light">Crisp Light Mode</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="setting-username">Display Name / Greeting</label>
+                  <input type="text" class="form-input" id="setting-username" placeholder="Achiever" maxlength="24">
+                </div>
+              </div>
+            </div>
+
+            <!-- Task Defaults -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-header">
+                <h3 class="card-title">Task Defaults</h3>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="setting-default-priority">Default Priority</label>
+                  <select class="form-select" id="setting-default-priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Urgent">Urgent</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="setting-default-category">Default Category</label>
+                  <select class="form-select" id="setting-default-category">
+                    <option value="Work">Work</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Study">Study</option>
+                    <option value="Health">Health</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pomodoro Timer Settings -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-header">
+                <h3 class="card-title">Pomodoro Timer Configuration</h3>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="setting-pomo-focus">Focus Duration (mins)</label>
+                  <input type="number" class="form-input" id="setting-pomo-focus" min="1" max="120" value="25">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="setting-pomo-short">Short Break (mins)</label>
+                  <input type="number" class="form-input" id="setting-pomo-short" min="1" max="30" value="5">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="setting-pomo-long">Long Break (mins)</label>
+                  <input type="number" class="form-input" id="setting-pomo-long" min="1" max="60" value="15">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="setting-pomo-interval">Sessions Before Long Break</label>
+                  <input type="number" class="form-input" id="setting-pomo-interval" min="1" max="12" value="4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Sound & Notifications -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-header">
+                <h3 class="card-title">Sound & Notifications</h3>
+              </div>
+              <div class="form-row" style="align-items: center;">
+                <div class="form-group">
+                  <label class="task-checkbox-container" style="gap: 0.5rem; font-weight: 600;">
+                    <input type="checkbox" id="setting-sound-enabled" checked>
+                    <span class="custom-checkbox"></span>
+                    <span>Enable Synthesized Audio Chimes</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="setting-sound-volume">Chime Volume</label>
+                  <input type="range" id="setting-sound-volume" min="0" max="1" step="0.05" value="0.7">
+                </div>
+                <div class="form-group">
+                  <button type="button" class="btn btn-secondary btn-sm" id="setting-test-sound-btn">
+                    🔊 Test Chime
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top: 1rem;">
+                <label class="task-checkbox-container" style="gap: 0.5rem; font-weight: 600;">
+                  <input type="checkbox" id="setting-browser-notifs">
+                  <span class="custom-checkbox"></span>
+                  <span>Enable Browser Desktop Notifications (for Pomodoro session completions)</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Save Settings Button -->
+            <div style="margin-bottom: 2rem;">
+              <button type="submit" class="btn btn-primary btn-lg">
+                Save Preferences
+              </button>
+            </div>
+          </form>
+
+          <!-- Data Management & Backups -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Data Management & Backup</h3>
+            </div>
+            <p style="margin-bottom: 1.25rem;">Your tasks and productivity records are stored entirely in your local browser storage. Export JSON backups to transfer data or safeguard records.</p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+              <button class="btn btn-secondary" id="settings-export-btn">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Export JSON Backup
+              </button>
+
+              <input type="file" id="settings-import-file" accept=".json" style="display: none;">
+              <button class="btn btn-secondary" id="settings-import-btn">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                Import JSON Backup
+              </button>
+
+              <button class="btn btn-ghost" id="settings-sample-data-btn">
+                Restore Sample Data
+              </button>
+
+              <button class="btn btn-danger" id="settings-clear-data-btn" style="margin-left: auto;">
+                Clear All Data
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- ======================================================================
+           Mobile Bottom Navigation Bar
+           ====================================================================== -->
+      <nav class="mobile-bottom-bar" aria-label="Mobile Navigation">
+        <a href="#dashboard" class="mobile-nav-item active" data-nav-target="dashboard">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="#tasks" class="mobile-nav-item" data-nav-target="tasks">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          <span>Tasks</span>
+        </a>
+        <a href="#calendar" class="mobile-nav-item" data-nav-target="calendar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <span>Calendar</span>
+        </a>
+        <a href="#pomodoro" class="mobile-nav-item" data-nav-target="pomodoro">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>Focus</span>
+        </a>
+        <a href="#statistics" class="mobile-nav-item" data-nav-target="statistics">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span>Stats</span>
+        </a>
+      </nav>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 1: Create / Edit Task Modal
+       ========================================================================== -->
+  <div class="modal-backdrop" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="task-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="task-modal-title">Create New Task</h3>
+        <button class="btn-icon btn-ghost" data-close-modal aria-label="Close modal">&times;</button>
+      </div>
+      <form id="task-form">
+        <input type="hidden" id="task-id-input">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="task-title-input">Task Title *</label>
+            <input type="text" class="form-input" id="task-title-input" required placeholder="e.g., Finalize project roadmap" maxlength="120">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="task-desc-input">Description</label>
+            <textarea class="form-textarea" id="task-desc-input" placeholder="Add relevant details, links, or action items..."></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="task-priority-input">Priority</label>
+              <select class="form-select" id="task-priority-input">
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+                <option value="Urgent">Urgent</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="task-category-input">Category</label>
+              <select class="form-select" id="task-category-input">
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+                <option value="Study">Study</option>
+                <option value="Health">Health</option>
+                <option value="Finance">Finance</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="task-date-input">Due Date</label>
+              <input type="date" class="form-input" id="task-date-input">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="task-time-input">Due Time</label>
+              <input type="time" class="form-input" id="task-time-input">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="task-tags-input">Tags (comma separated)</label>
+              <input type="text" class="form-input" id="task-tags-input" placeholder="e.g. Planning, Sprint, Q3">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="task-status-input">Status</label>
+              <select class="form-select" id="task-status-input">
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="task-save-btn">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: Task Detail View Modal
+       ========================================================================== -->
+  <div class="modal-backdrop" id="task-detail-modal" role="dialog" aria-modal="true" aria-labelledby="task-detail-heading">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="task-detail-heading">Task Details</h3>
+        <button class="btn-icon btn-ghost" data-close-modal aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body" id="task-detail-content">
+        <!-- Injected via tasks.js openTaskDetailModal -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 3: Accessible Confirmation Dialog Modal
+       ========================================================================== -->
+  <div class="modal-backdrop" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title">
+    <div class="modal-dialog modal-dialog-sm">
+      <div class="modal-header">
+        <h3 class="modal-title" id="confirm-modal-title">Confirm Action</h3>
+        <button class="btn-icon btn-ghost" data-close-modal aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-modal-message" style="font-size: 0.95rem; line-height: 1.5; color: var(--text-main);">Are you sure you want to proceed?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="confirm-modal-cancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm-modal-action">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Scripts (Loaded in strict modular order)
+       ========================================================================== -->
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/tasks.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/pomodoro.js"></script>
+  <script src="js/holidays.js"></script>
+  <script src="js/statistics.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

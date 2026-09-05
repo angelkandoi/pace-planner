@@ -1,0 +1,317 @@
+/**
+ * Pace Planner - Responsive Layout & Media Queries
+ * Ergonomic touch targets, off-canvas drawer for mobile/tablet, and mobile bottom bar.
+ */
+
+/* Mobile Bottom Navigation (Hidden on Desktop) */
+.mobile-bottom-bar {
+  display: none;
+}
+
+.mobile-drawer-toggle {
+  display: none;
+}
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 95;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.sidebar-backdrop.is-open {
+  display: block;
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Large Desktop Screens (>= 1280px)
+   ========================================================================== */
+@media (min-width: 1280px) {
+  .view-viewport {
+    padding: 2.5rem 3rem;
+  }
+}
+
+/* ==========================================================================
+   Tablets & Smaller Laptops (<= 1024px)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .dash-columns-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cal-agenda-card {
+    max-height: 400px;
+  }
+
+  .pomo-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-charts-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Mobile & Small Tablets (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Layout adjustments */
+  .app-sidebar {
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .app-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .app-main {
+    margin-left: 0;
+    padding-bottom: 70px; /* Leave room for mobile bottom bar */
+  }
+
+  .mobile-drawer-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    color: var(--text-main);
+  }
+
+  .app-header {
+    padding: 0 1rem;
+  }
+
+  .view-viewport {
+    padding: 1.25rem 1rem;
+  }
+
+  /* Header adjustments */
+  .header-time-pill {
+    display: none;
+  }
+
+  .dash-hero-banner {
+    padding: 1.5rem 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .dash-greeting h2 {
+    font-size: 1.45rem;
+  }
+
+  .dash-stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .stat-icon-wrap {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+
+  .stat-value {
+    font-size: 1.35rem;
+  }
+
+  /* Tasks adjustments */
+  .tasks-toolbar {
+    padding: 0.85rem;
+  }
+
+  .tasks-controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filter-group select {
+    flex: 1;
+  }
+
+  .task-card {
+    padding: 1rem;
+  }
+
+  .task-card-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Calendar mobile adjustments */
+  .cal-card {
+    padding: 1rem;
+  }
+
+  .cal-day-cell {
+    min-height: 42px;
+    padding: 0.25rem;
+  }
+
+  .cal-day-num {
+    font-size: 0.75rem;
+  }
+
+  .cal-day-badge {
+    display: none; /* Hide fraction text on tiny screens */
+  }
+
+  .cal-day-dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  /* Pomodoro mobile */
+  .pomo-main-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .pomo-timer-display {
+    width: 200px;
+    height: 200px;
+  }
+
+  .pomo-timer-text {
+    font-size: 2.6rem;
+  }
+
+  /* Modals */
+  .modal-dialog {
+    max-width: 95%;
+  }
+
+  .modal-header {
+    padding: 1.25rem 1.25rem 0.85rem;
+  }
+
+  .modal-body {
+    padding: 1.25rem;
+  }
+
+  .modal-footer {
+    padding: 0.85rem 1.25rem 1.25rem;
+  }
+
+  .task-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Mobile Bottom Navigation Bar */
+  .mobile-bottom-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border-color);
+    z-index: 100;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 0.5rem;
+  }
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    flex: 1;
+    min-height: 48px;
+    padding: 0.4rem 0;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .mobile-nav-item.active {
+    color: var(--primary);
+  }
+
+  .mobile-nav-item .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Toasts on mobile */
+  .toast-container {
+    bottom: 75px;
+    right: 1rem;
+    left: 1rem;
+  }
+
+  .toast {
+    min-width: unset;
+    max-width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Small Mobile Phones (<= 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .dash-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pomo-mode-tabs {
+    flex-wrap: wrap;
+    border-radius: var(--radius-lg);
+  }
+
+  .pomo-mode-btn {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
