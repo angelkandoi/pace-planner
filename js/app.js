@@ -203,6 +203,7 @@ const App = (() => {
     const toggleBtn = document.getElementById('mobile-drawer-toggle');
     const sidebar = document.getElementById('app-sidebar');
     const overlay = document.getElementById('sidebar-backdrop');
+    const closeBtn = document.getElementById('sidebar-close-btn');
 
     if (toggleBtn && sidebar && overlay) {
       toggleBtn.addEventListener('click', () => {
@@ -211,6 +212,10 @@ const App = (() => {
       });
 
       overlay.addEventListener('click', closeMobileDrawer);
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeMobileDrawer);
     }
   }
 

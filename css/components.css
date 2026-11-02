@@ -322,6 +322,39 @@
   margin-bottom: 0.35rem;
 }
 
+.dash-greeting-top {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.dash-workspace-badge {
+  font-size: 0.72rem;
+  padding: 0.15rem 0.5rem;
+  opacity: 0.85;
+}
+
+.dash-hero-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+#dash-live-time {
+  font-size: 1.85rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+#dash-live-date {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
 .dash-stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -633,6 +666,12 @@
   padding: 0.5rem 0.85rem;
   font-size: 0.85rem;
   width: auto;
+}
+
+.sort-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 /* Task Cards */
@@ -1634,4 +1673,25 @@
   color: var(--text-muted);
   max-width: 360px;
   margin-bottom: 1rem;
+}
+
+/* Mobile-only header elements hidden on desktop */
+.sidebar-close-btn {
+  display: none;
+}
+
+.mobile-header-brand {
+  display: none;
+}
+
+/* Settings Backup Actions */
+.settings-backup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.settings-backup-actions #settings-clear-data-btn {
+  margin-left: auto;
 }

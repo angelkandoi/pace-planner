@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Pace Planner — Modern Personal Productivity & Planning Dashboard</title>
   <meta name="description" content="Pace Planner is an intelligent personal productivity and planning dashboard. Organize tasks with full CRUD, focus with Pomodoro timers, track calendar schedules, and view public holidays.">
@@ -52,6 +52,9 @@
         </div>
         <span class="brand-name">Pace Planner</span>
         <span class="brand-badge">MVP</span>
+        <button class="btn-icon btn-ghost sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
       </div>
 
       <nav class="sidebar-nav">
@@ -111,6 +114,10 @@
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
           </button>
           
+          <div class="mobile-header-brand" aria-hidden="true">
+            <span class="brand-name">Pace Planner</span>
+          </div>
+
           <div class="header-time-pill" title="Current Local Time">
             <span class="header-live-pulse" aria-hidden="true"></span>
             <span id="header-live-time">12:00 PM</span>
@@ -121,12 +128,12 @@
           <!-- Quick Add Button -->
           <button class="btn btn-primary btn-sm" data-action="quick-add-task" id="header-quick-add-btn">
             <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <span>Add Task</span>
+            <span class="header-add-text">Add Task</span>
           </button>
 
           <!-- Quick Theme Toggle -->
           <button class="btn-icon btn-ghost" id="quick-theme-toggle" aria-label="Toggle Dark/Light Theme" title="Toggle Theme">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
           </button>
         </div>
       </header>
@@ -140,15 +147,15 @@
         <section class="app-section is-active" id="section-dashboard" aria-labelledby="dash-title">
           <div class="dash-hero-banner">
             <div class="dash-greeting">
-              <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.35rem; flex-wrap: wrap;">
+              <div class="dash-greeting-top">
                 <h2 id="dash-greeting-text">🌅 Good morning, <span class="highlight-name">Achiever</span></h2>
-                <span class="badge badge-neutral" style="font-size: 0.72rem; padding: 0.15rem 0.5rem; opacity: 0.85;" title="Sample tasks loaded for demonstration. You can customize, add, or clear them anytime in Settings.">Local Demo Workspace</span>
+                <span class="badge badge-neutral dash-workspace-badge" title="Sample tasks loaded for demonstration. You can customize, add, or clear them anytime in Settings.">Local Demo Workspace</span>
               </div>
               <p id="dash-greeting-sub">Your personal productivity dashboard for daily tasks, Pomodoro focus, and planning.</p>
             </div>
-            <div class="dash-hero-right" style="text-align: right;">
-              <div id="dash-live-time" style="font-size: 1.85rem; font-weight: 800; font-family: var(--font-heading); color: var(--primary); line-height: 1.1;">--:--:--</div>
-              <div id="dash-live-date" style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.25rem;">Saturday, September 5, 2026</div>
+            <div class="dash-hero-right">
+              <div id="dash-live-time">--:--:--</div>
+              <div id="dash-live-date">Saturday, September 5, 2026</div>
             </div>
           </div>
 
@@ -298,16 +305,16 @@
                   <option value="Completed">Completed</option>
                 </select>
 
-                <!-- Sort By -->
-                <select class="form-select" id="sort-by-select" aria-label="Sort tasks">
-                  <option value="dueDate">Due Date</option>
-                  <option value="priority">Priority</option>
-                  <option value="createdAt">Created Date</option>
-                  <option value="title">Alphabetical</option>
-                </select>
-
-                <!-- Sort Order Toggle -->
-                <button class="btn btn-secondary btn-icon" id="sort-order-btn" title="Sort Order: ASC">↑</button>
+                <!-- Sort By & Direction -->
+                <div class="sort-select-wrapper">
+                  <select class="form-select" id="sort-by-select" aria-label="Sort tasks">
+                    <option value="dueDate">Due Date</option>
+                    <option value="priority">Priority</option>
+                    <option value="createdAt">Created Date</option>
+                    <option value="title">Alphabetical</option>
+                  </select>
+                  <button class="btn btn-secondary btn-icon" id="sort-order-btn" title="Sort Order: ASC" aria-label="Toggle sort order">↑</button>
+                </div>
               </div>
             </div>
           </div>
@@ -765,7 +772,7 @@
             </div>
             <p style="margin-bottom: 1.25rem;">Your tasks and productivity records are stored entirely in your local browser storage. Export JSON backups to transfer data or safeguard records.</p>
             
-            <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+            <div class="settings-backup-actions">
               <button class="btn btn-secondary" id="settings-export-btn">
                 <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                 Export JSON Backup
@@ -781,7 +788,7 @@
                 Restore Sample Data
               </button>
 
-              <button class="btn btn-danger" id="settings-clear-data-btn" style="margin-left: auto;">
+              <button class="btn btn-danger" id="settings-clear-data-btn">
                 Clear All Data
               </button>
             </div>
